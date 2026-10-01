@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>매경TEST 경제학 CBT 기출문제 풀이</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg-color: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-sub: #64748b;
+      --border-color: #e2e8f0;
+      --correct-bg: #dcfce7;
+      --correct-border: #22c55e;
+      --correct-text: #14532d;
+      --wrong-bg: #fee2e2;
+      --wrong-border: #ef4444;
+      --wrong-text: #7f1d1d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .app-header {
+      max-width: 1200px;
+      margin: 0 auto 20px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .app-header h1 {
+      font-size: 1.5rem;
+      color: var(--text-main);
+    }
+
+    .btn-action {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .btn-action:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .cbt-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 20px;
+    }
+
+    @media (max-width: 868px) {
+      .cbt-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* 메인 문제 영역 */
+    .question-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      min-height: 600px;
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .category-badge {
+      background-color: #eff6ff;
+      color: var(--primary);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .progress-text {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    .question-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      word-break: keep-all;
+    }
+
+    /* 보기 목록 */
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #fff;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      word-break: keep-all;
+    }
+
+    .option-btn:hover:not(.correct):not(.wrong) {
+      background-color: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .option-btn.correct {
+      background-color: var(--correct-bg);
+      border-color: var(--correct-border);
+      color: var(--correct-text);
+      font-weight: 600;
+    }
+
+    .option-btn.wrong {
+      background-color: var(--wrong-bg);
+      border-color: var(--wrong-border);
+      color: var(--wrong-text);
+    }
+
+    /* 해설 박스 */
+    .explanation-box {
+      margin-top: 10px;
+      padding: 16px;
+      background-color: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      white-space: pre-line;
+      line-height: 1.6;
+      color: #0c4a6e;
+      font-size: 0.92rem;
+    }
+
+    /* 하단 이동 버튼 */
+    .navigation-bar {
+      margin-top: auto;
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      padding: 10px 20px;
+      border: 1px solid var(--border-color);
+      background-color: #fff;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      background-color: #f1f5f9;
+    }
+
+    /* 사이드바 / OMR */
+    .sidebar-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      height: fit-content;
+    }
+
+    .omr-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .score-summary {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .omr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 8px;
+      max-height: 550px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .omr-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      background-color: #fff;
+      transition: all 0.15s;
+    }
+
+    .omr-item:hover {
+      border-color: var(--primary);
+    }
+
+    .omr-item.active {
+      border-color: var(--primary);
+      background-color: #eff6ff;
+      font-weight: 600;
+    }
+
+    .status-badge {
+      font-size: 0.75rem;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .status-none { background: #f1f5f9; color: var(--text-sub); }
+    .status-correct { background: var(--correct-bg); color: var(--correct-text); font-weight: 600; }
+    .status-wrong { background: var(--wrong-bg); color: var(--wrong-text); font-weight: 600; }
+
+    /* 문제 내 박스 및 데이터 테이블 */
+    .passage-box {
+      background-color: #f8fafc;
+      border-left: 4px solid var(--primary);
+      padding: 12px 16px;
+      margin: 12px 0;
+      border-radius: 4px;
+      font-size: 0.95rem;
+    }
+
+    .linked-passage-box {
+      background-color: #fffbe0;
+      border: 1px solid #fde047;
+      border-left: 5px solid #eab308;
+      padding: 14px 18px;
+      margin-bottom: 16px;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 8px 0;
+      font-size: 0.9rem;
+    }
+
+    .data-table th, .data-table td {
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      text-align: center;
+    }
+
+    .data-table th {
+      background-color: #f1f5f9;
+      font-weight: 600;
+    }
+
+    .table-unit {
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      margin-bottom: 4px;
+    }
+
+    .diagram-box {
+      margin: 16px 0;
+      padding: 16px;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    /* 2x2 매트릭스 도표 레이아웃 */
+    .matrix-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 16px 0;
+    }
+
+    .matrix-box {
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 16px 20px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      width: 100%;
+      max-width: 380px;
+    }
+
+    .matrix-inner {
+      display: grid;
+      grid-template-columns: auto auto 1fr;
+      grid-template-rows: 170px auto auto;
+      gap: 6px 12px;
+      align-items: center;
+    }
+
+    .matrix-y-title {
+      grid-column: 1;
+      grid-row: 1;
+      writing-mode: vertical-rl;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #334155;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .matrix-y-scale {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #64748b;
+      text-align: right;
+      padding: 2px 0;
+    }
+
+    .matrix-grid {
+      grid-column: 3;
+      grid-row: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 8px;
+      height: 100%;
+    }
+
+    .matrix-cell {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #f8fafc;
+      padding: 6px;
+    }
+
+    .cell-symbol {
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: var(--text-main);
+    }
+
+    .cell-title {
+      font-size: 0.8rem;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    .matrix-x-scale {
+      grid-column: 3;
+      grid-row: 2;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #64748b;
+      padding: 2px 4px 0 4px;
+    }
+
+    .matrix-x-title {
+      grid-column: 3;
+      grid-row: 3;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #334155;
+      text-align: center;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-header">
+    <h1>매경TEST 경제학 기출문제 풀이</h1>
+    <button class="btn-action" onclick="resetAndShuffle()">문제 섞기 & 리셋</button>
+  </div>
+
+  <div class="cbt-container">
+    <!-- 메인 문제 영역 -->
+    <main class="question-card">
+      <div class="question-header">
+        <span id="categoryBadge" class="category-badge">경제학</span>
+        <span class="progress-text"><strong id="currentIndex">1</strong> / <span id="totalIndex">50</span></span>
+      </div>
+
+      <div id="linkedPassage" class="linked-passage-box" style="display: none;"></div>
+      <div id="questionTitle" class="question-title"></div>
+
+      <div id="optionsList" class="options-list"></div>
+
+      <div id="explanationBox" class="explanation-box" style="display: none;"></div>
+
+      <div class="navigation-bar">
+        <button id="prevBtn" class="nav-btn" onclick="prevQuestion()">◀ 이전 문제</button>
+        <button id="nextBtn" class="nav-btn" onclick="nextQuestion()">다음 문제 ▶</button>
+      </div>
+    </main>
+
+    <!-- OMR 답안지 영역 -->
+    <aside class="sidebar-card">
+      <div class="omr-header">
+        <h3>OMR 답안지</h3>
+        <span id="scoreSummary" class="score-summary">맞힘: 0 / 50</span>
+      </div>
+      <div id="omrGrid" class="omr-grid"></div>
+    </aside>
+  </div>
+
+  <script>
+    const originalQuestions = [
+      {
+        id: 1,
+        category: "거시경제",
+        question: "다음 중 GDP 산정 시 포함되지 않는 사례는?",
+        options: [
+          "① 가사돌보미의 가사노동 서비스",
+          "② 정부 자금으로 건설된 고속도로",
+          "③ 주식 투자를 통해 얻은 자본소득",
+          "④ 판매되지 않아 창고에 보관된 생산품",
+          "⑤ 국내에서 근무 중인 외국인 노동자의 소득"
+        ],
+        answer: 3,
+        explanation: "[해설]\n② [O] 정부구매에 해당.\n③ [X] 단순한 부의 이전이여 생산 활동이 수반되지 않음.\n④ [O] 재고투자에 해당.\n\n정답: ③"
+      },
+      {
+        id: 2,
+        category: "거시경제",
+        question: "다음에서 설명하는 경제 개념은?<div class='passage-box'>이것은 '물가상승률과 실업률 간 경험적 상충관계'를 나타낸 것으로, 1970년대 이전에는 영국이나 미국 등 주요국 경제에서 뚜렷하게 관찰됐다. 하지만 1970년대 두 차례에 걸친 석유파동 이후 물가상승률과 실업률 간 음(-)의 상관관계가 희석돼 이전만큼 잘 관찰되지 않게 되었다.</div>",
+        options: [
+          "① 래퍼곡선",
+          "② J곡선 효과",
+          "③ 필립스곡선",
+          "④ 세이의 법칙",
+          "⑤ 트리핀의 딜레마"
+        ],
+        answer: 3,
+        explanation: "[해설]\n① [X] 세율과 조세수입 간의 역U자 관계를 나타낸 곡선.\n② [X] 환율 상승이 단기적으로는 오히려 경상수지를 악화시키고, 시간이 흐름에 따라 개선되는 현상.\n④ [X] 공급은 스스로 수요를 창출한다는 것으로, 유효수요 부족으로 공급과잉 상태가 발생하지 않는다는 의미이며 고전학파 경제이론의 주요 견해이다.\n⑤ [X] 브레턴우즈체제(금환본위제) 하에서 기축통화(달러)가 국제교역에 원활히 유통되기 위해서는 기축통화국의 경상수지 적자가 불가피하지만, 이는 기축통화의 신뢰도 저하로 이어져 고정환율제가 붕괴할 것이라는 비판.\n\n정답: ③"
+      },
+      {
+        id: 3,
+        category: "화폐금융",
+        question: "다음 중 시중 통화량을 감소시키는 요인으로 가장 거리가 먼 것은?",
+        options: [
+          "① 재할인율 인상",
+          "② LTV 하향 조정",
+          "③ 법정지급준비율 인상",
+          "④ 중앙은행의 국공채 매입",
+          "⑤ 중앙은행의 대정부 대출 축소"
+        ],
+        answer: 4,
+        explanation: "[해설]\n① [O] 중앙은행의 시중은행에 대한 재할인 대출 감소로 인한 통화량 감소.\n② [O] 대출규제 강화로 인한 통화량 감소.\n③ [O] 지급준비율 상승으로 인한 통화량 감소.\n④ [X] 공개시장운영을 통한 통화량 증가.\n⑤ [O] 중앙은행의 자산(정부에 대한 대출채권)이 감소하고 대출금 회수로 인해 시중통화 공급이 줄어 통화량의 감소 요인이 됨.\n\n정답: ④"
+      },
+      {
+        id: 4,
+        category: "미시경제",
+        question: "다음 중 '동일한 상품을 소비자들의 가격탄력성에 따라 다른 가격으로 판매하는 가격전략'을 일컫는 경제 개념은?",
+        options: [
+          "① 단수가격",
+          "② 약탈가격",
+          "③ 가격차별",
+          "④ 침투가격",
+          "⑤ 마크업가격"
+        ],
+        answer: 3,
+        explanation: "[해설]\n① [X] 상품 가격을 $9.99처럼 단수(홀수)로 끝내도록 하여 수요를 촉진하는 가격설정전략을 말한다.\n② [X] 기업이 시장에서 경쟁사를 몰아내기 위해 손실을 감수하고 매우 낮은 가격으로 제품을 판매하는 전략으로, 독점적 지위 확보 후 다시 가격을 인상해 폭리를 취하기 위한 목적으로 시행한다.\n④ [X] 경쟁사 대비 차별성이 있을 때나 시장점유율 확보를 위해 낮은 가격을 책정하는 전략.\n⑤ [X] 시장지배력을 이용해 초과이윤이 최대화되도록 한계비용보다 높게 책정된 가격.\n\n정답: ③"
+      },
+      {
+        id: 5,
+        category: "거시경제",
+        question: "다음 중 경제안정화 정책에 대한 올바른 설명으로 가장 거리가 먼 것은?",
+        options: [
+          "① 한계소비성향이 클수록 재정지출을 통한 경기 부양 효과가 감소한다.",
+          "② 화폐를 발행해 재정지출 재원을 조달하는 경우 자국의 화폐가치가 하락하게 된다.",
+          "③ 국공채를 발행해 정부구입을 늘리는 경우 이자율이 상승해 민간 수요를 위축시킬 수 있다.",
+          "④ 시중통화량을 늘려 경기 부양을 꾀하는 경우 투자의 이자율탄력도가 클수록 더 효과적이다.",
+          "⑤ 화폐수요가 이자율 변화에 대해 대단히 민감한 경우 확장적 통화정책보다 확장적 재정정책이 경기 부양에 더 효과적이다."
+        ],
+        answer: 1,
+        explanation: "[해설]\n① [X] 한계소비성향이 클수록 승수효과가 크게 나타나 동일한 수준의 재정지출 증가에 대해 총수요 증대 폭이 커진다.\n② [O] 부채의 화폐화에 해당하며, 화폐가치 하락으로 인해 적자재정을 감당하기 위해 필요한 화폐량이 더욱 증가하므로 최종적으로 하이퍼인플레이션으로 이어질 가능성이 높다.\n③ [O] 구축효과(crowding-out effect)에 대해 설명한다.\n④ [O] 이자율이 하락함에 따라 투자량이 크게 증가하므로 통화정책의 효과가 커진다.\n⑤ [O] 극단적 통화정책으로 통화량을 증가시켜도 대부분 화폐수요로 흡수되고 이자율이 거의 하락하지 않아 총수요를 증가시키기 어렵다.\n\n정답: ①"
+      },
+      {
+        id: 6,
+        category: "노동/고용",
+        question: "다음 중 고용지표에 대한 올바른 설명은?",
+        options: [
+          "① 실업노동자가 늘어나면 실업률이 상승한다.",
+          "② 무급 가족종사자는 비경제활동인구에 포함된다.",
+          "③ 고용률은 경제활동인구에 대한 취업자의 비율을 나타낸다.",
+          "④ 경제활동참가율은 경제활동인구에서 취업자가 차지하는 비중을 나타낸다.",
+          "⑤ 잠재경제활동인구는 통계청에서 발표하는 실업률과 체감실업률 간 격차가 나타나는 주요 요인이다."
+        ],
+        answer: 5,
+        explanation: "[해설]\n① [X] 실업노동자(구직단념자)의 증가는 실업인구의 비경제활동인구로의 전환을 의미하므로 실업률은 하락한다.\n② [X] 무급 가족종사자(가족이 운영하는 사업체에서 주 18시간 이상 일하는 사람)도 취업자에 포함된다.\n③ [X] 고용률은 생산가능인구에 대한 취업자의 비율을 말한다.\n④ [X] 경제활동참가율은 생산가능인구 중에서 경제활동에 참가하는 사람(취업자 + 실업자)의 비율을 뜻한다.\n⑤ [O] 잠재경제활동인구에는 실업노동자 등이 포함되며, 이를 이용해 체감실업률을 만든다. 이는 고용 보조지표를 계산할 수 있다.\n\n정답: ⑤"
+      },
+      {
+        id: 7,
+        category: "미시경제",
+        question: "다음 중 완전경쟁시장에 대한 올바른 설명으로 가장 거리가 먼 것은?",
+        options: [
+          "① 기업들은 시장에서 가격수용자가 된다.",
+          "② 다수의 소비자 및 공급자가 거래에 참여한다.",
+          "③ 공급자들은 차별화된 제품을 시장에 공급한다.",
+          "④ 모든 소비자와 공급자는 동일한 정보를 공유한다.",
+          "⑤ 사회적으로 효율적인 수준만큼 재화가 생산되고 소비된다."
+        ],
+        answer: 3,
+        explanation: "[해설]\n① [O] 완전경쟁시장에서 기업들은 가격결정능력이 없으며 시장의 수요와 공급에 의해 결정된 가격을 받아들이는 입장에 있다.\n③ [X] 완전경쟁시장에서는 동질적인 재화가 거래된다.\n④ [O] 완전경쟁시장에서는 모든 참여자가 가격과 품질에 대한 정보를 동일하게 알고 있다고 가정한다.\n\n정답: ③"
+      },
+      {
+        id: 8,
+        category: "거시경제",
+        question: "다음 중 경제의 총공급을 증가시키는 요인으로 가장 거리가 먼 것은?",
+        options: [
+          "① 물품세 인상",
+          "② 생산 공정 개선",
+          "③ 원자재 가격 하락",
+          "④ 노동자 직업교육 강화",
+          "⑤ 생산가능연령대의 이민자 유입"
+        ],
+        answer: 1,
+        explanation: "[해설]\n① [X] 물품세는 특정 재화에 부과되는 소비세로, 생산비용을 인상시키므로 총공급의 감소 요인이다.\n② [O] 생산성의 증가로 총공급의 증가 요인에 해당한다.\n③ [O] 제품 생산 비용을 하락시켜 총공급을 증가시키는 요인이다.\n⑤ [O] 노동 공급의 증가로 총공급의 증가 요인이다.\n\n정답: ①"
+      },
+      {
+        id: 9,
+        category: "국민소득",
+        question: "다음 중 '지출 측면의 국민소득을 구성하는 요소로 미래의 생산 능력 증대를 위한 재화 구매'를 뜻하는 것은?",
+        options: [
+          "① 소비",
+          "② 투자",
+          "③ 순수출",
+          "④ 이전지출",
+          "⑤ 정부구매"
+        ],
+        answer: 2,
+        explanation: "[해설]\n기업이 미래의 생산 능력을 확충하기 위해 자본재를 구매하는 것은 '투자'에 해당한다.\n\n정답: ②"
+      },
+      {
+        id: 10,
+        category: "거시경제",
+        question: "다음 중 인플레이션이 발생할 때 나타나는 현상으로 가장 거리가 먼 것은?",
+        options: [
+          "① 채권자로부터 채무자에게로 부가 재분배된다.",
+          "② 실질임금 하락으로 근로자의 생계비 부담이 늘어난다.",
+          "③ 부동산과 금 등 실물자산에 대한 투자선호도가 높아진다.",
+          "④ 메뉴비용과 구두창비용 등 각종 사회적 비용이 발생한다.",
+          "⑤ 고수익·고위험 자산보다 수익률이 낮아도 위험이 적은 정기예금과 적금에 자금이 몰리게 된다."
+        ],
+        answer: 5,
+        explanation: "[해설]\n① [O] 물가 상승 시 화폐가치가 하락하여 채무자의 실질적 채무 상환부담이 감소한다.\n② [O] 명목임금이 일정한 상태에서 물가가 상승하면 실질구매력이 감소한다.\n③ [O] 금융자산의 가치 하락을 회피하기 위해 금 등 실물자산 매입을 선호하게 된다.\n⑤ [X] 금융자산의 가치 하락을 회피하기 위해 고수익·고위험 자산의 수요가 증가하는 경향이 있다. 정기예금과 정기적금은 인플레이션으로 인해 실질이자율이 0보다 낮아질 수 있어 선호도가 줄어든다.\n\n정답: ⑤"
+      },
+      {
+        id: 11,
+        category: "미시/거시",
+        question: "다음 중 기업이 제품 가격을 인상할 때 발생하는 비용으로 가격표 교체 비용으로부터 새 가격을 고객에게 전달하는 과정에서 수반되는 사회적 비용·일체를 뜻하는 경제 개념은?",
+        options: [
+          "① 고정비용",
+          "② 매몰비용",
+          "③ 메뉴비용",
+          "④ 구두창비용",
+          "⑤ 암묵적비용"
+        ],
+        answer: 3,
+        explanation: "[해설]\n기업이 제품 가격을 변경하면서 발생하는 가격표 교체 비용과 변경 가격을 공지하는 데 발생하는 일체의 비용을 메뉴비용이라고 부른다.\n\n정답: ③"
+      },
+      {
+        id: 12,
+        category: "화폐금융",
+        question: "다음 중 '예상물가상승률의 변화가 동일한 크기의 명목이자율 변화를 가져오는 현상'을 뜻하는 경제 개념은?",
+        options: [
+          "① 피셔효과",
+          "② 피구효과",
+          "③ 화폐환상",
+          "④ 유동성효과",
+          "⑤ 화폐중립성"
+        ],
+        answer: 1,
+        explanation: "[해설]\n피셔방정식에 따르면 명목이자율은 실질이자율과 기대물가상승률의 합으로 나타나며, 장기적으로 실질이자율은 물가에 영향 받지 않기 때문에 기대물가상승률의 변화는 같은 크기의 명목이자율 변화로 이어진다.\n\n정답: ①"
+      },
+      {
+        id: 13,
+        category: "국제금융",
+        question: "다음 중 '국가 간 자본이동을 제약하는 요인이 없을 때, 양국에서 채권 투자 시 기대수익이 같아질 것'이라고 보는 경제이론은?",
+        options: [
+          "① 오버슈팅",
+          "② 구매력평가",
+          "③ 이자율평가",
+          "④ 리카도등가",
+          "⑤ 마샬-러너의 조건"
+        ],
+        answer: 3,
+        explanation: "[해설]\n이자율평가는 국내 채권 투자수익률은 해외 채권에 투자했을 때 얻어지는 수익률과 같아야 한다는 무위험거래 원리를 이용한 단기적 환율 결정 메커니즘이다. 해외 채권 투자수익률은 '해외채권수익률과 환율의 예상변동률·상승률 환율리수익과 환차손익의 합'으로 구성된다.\n\n정답: ③"
+      },
+      {
+        id: 14,
+        category: "노동/고용",
+        question: "다음 기사의 내용과 가장 관련 깊은 실업은?<div class='passage-box'><strong>[NEWS]</strong><br>인터넷 전문은행이 도입된 가운데, 은행권의 채용시점에도 변화가 일어나고 있다. 과거에는 은행 영업점의 영업직 위주로 채용이 진행된 것과 달리 현재는 디지털, IT직군 채용 규모가 더욱 증가하였다. 모바일 행정세로 접어들면서 기존 은행들도 내점영업보다 디지털 역량 확보에 더 중점을 두고 있는 것이다.</div>",
+        options: [
+          "① 마찰적 실업",
+          "② 구조적 실업",
+          "③ 계절적 실업",
+          "④ 경기적 실업",
+          "⑤ 잠재적 실업"
+        ],
+        answer: 2,
+        explanation: "[해설]\n자료는 은행업에서 디지털금융이 보편화되면서 내점영업의 필요가 감소함에 따라 영업 인력을 줄이고 IT 인력 고용을 확대한다는 내용이다. 이는 기술과 산업의 구조적 변화에 따른 영업인력 구직난의 원인이 되므로 구조적 실업을 유발한다고 볼 수 있다.\n\n정답: ②"
+      },
+      {
+        id: 15,
+        category: "거시경제",
+        question: "다음 중 '사람들이 겪는 경제적 어려움을 수치화한 것으로, 실업률과 물가상승률의 합'으로 산출되는 경제지표는?",
+        options: [
+          "① 러너지수",
+          "② 지니계수",
+          "③ 샤프지수",
+          "④ 확장실업률",
+          "⑤ 경제고통지수"
+        ],
+        answer: 5,
+        explanation: "[해설]\n경제고통지수는 가계를 경제적으로 어렵게 하는 두 요인(실업률·인플레이션)을 합하여 산출한 지표이다. 러너지수는 기업의 시장지배력(가격결정력)의 정도를 측정하는 지표이며, 지니계수는 소득 분배의 불평등 정도를 나타낸다. 샤프지수는 투자 포트폴리오의 위험(변동성) 대비 초과수익률의 비율을 나타낸다.\n\n정답: ⑤"
+      },
+      {
+        id: 16,
+        category: "미시경제",
+        question: "다음 중 치즈피자 가격을 상승시키는 요인으로 가장 거리가 먼 것은? (단, 피자는 정상재이며, 햄버거와 대체재 그리고 콜라와 보완재 관계이다.)",
+        options: [
+          "① 치즈가격 상승",
+          "② 콜라 가격 하락",
+          "③ 햄버거 가격 상승",
+          "④ 처분가능소득 감소",
+          "⑤ 치즈피자에 대한 판촉활동 강화"
+        ],
+        answer: 4,
+        explanation: "[해설]\n① [O] 치즈피자 공급을 감소시키는 요인이다.\n② [O] 보완재 가격 하락으로 치즈피자 수요가 증가한다.\n③ [O] 대체재 가격 상승으로 치즈피자 수요가 증가한다.\n④ [X] 소득 감소로 정상재인 치즈피자 수요는 감소한다.\n⑤ [O] 생산비용 증가(광고비 지출 증가)에 따른 공급 감소 또는 치즈 피자에 대한 선호도 증가로 인한 수요 증가.\n\n정답: ④"
+      },
+      {
+        id: 17,
+        category: "미시경제",
+        question: "다음 중 '과점시장'에 대한 가장 올바른 설명은?",
+        options: [
+          "① 기업들은 시장지배력을 행사하지 못한다.",
+          "② 요식업과 음반시장은 과점시장의 사례이다.",
+          "③ 다수의 기업이 시장에 재화나 서비스를 공급한다.",
+          "④ 기업들은 상호의존적 의사결정을 해야 하는 전략적 상황에 놓인다.",
+          "⑤ 산업 내 진입장벽이 존재하지 않는다."
+        ],
+        answer: 4,
+        explanation: "[해설]\n① [X] 과점시장에서 기업들은 담합하지 않으면 가격경쟁을 갖는다.\n② [X] 요식업, 음반시장 등은 진입장벽이나 시장 참여자 수 측면에서 독점적 경쟁시장에 가까운 특징을 보인다.\n③ [X] 소수의 기업이 시장에 참여한다.\n④ [O] 과점시장에서는 나의 보수가 상대방의 행동에 의해 영향받는 것까지 고려해야 하는 전략적 의사결정이 필요하다.\n⑤ [X] 진입장벽이 존재하여 신규 사업자의 시장 참여가 제한되기 때문에 소수의 공급자만이 참여한다.\n\n정답: ④"
+      },
+      {
+        id: 18,
+        category: "거시경제",
+        question: "다음 중 '실질GDP와 실업률 간 경험적 상충관계'로 필립스곡선의 이론적 도출에 이용되는 경제 개념은?",
+        options: [
+          "① 피셔방정식",
+          "② 왈라스 법칙",
+          "③ 세이의 법칙",
+          "④ 오쿤의 법칙",
+          "⑤ 틴버겐의 법칙"
+        ],
+        answer: 4,
+        explanation: "[해설]\n실질GDP증가율과 실업률 간 음(-)의 상관관계를 오쿤의 법칙(Okun's law)이라 부른다.\n① [X] 명목이자율이 실질이자율과 기대물가상승률의 합과 같아진다는 공식.\n② [X] 일부 재화시장에서 초과공급이 발생하더라도 다른 재화시장에서의 초과수요와 상쇄되어 전체 경제에서는 초과수요의 합이 0이 된다는 주장.\n③ [X] 공급은 그 자체로 수요를 창출하기 때문에 유효수요 부족에 따른 공급과잉(경기 불황 혹은 공황)은 발생하지 않는다는 이론.\n⑤ [X] n개의 정책 목표를 달성하고자 한다면 적어도 n개의 독립적인 정책 수단을 가져야 한다는 이론.\n\n정답: ④"
+      },
+      {
+        id: 19,
+        category: "미시경제",
+        question: "다음의 밑줄 친 (가)에 해당하는 경제 개념으로 가장 올바른 것은?<div class='passage-box'>기업이 소비자의 지불용의의사(willingness to pay)를 직접 관찰할 수 없다는 사실은 시장 지배력을 행사하는 기업이 이윤 극대화를 이루는 데 걸림돌이 된다. 만약 기업이 이러한 소비자의 사적 정보를 알아낼 수 있다면 <u>(가)동일한 상품이나 서비스를 소비자에 따라 다른 가격으로 판매함으로써</u> 소비자후생을 극대화할 수 있다.</div>",
+        options: [
+          "① 단수가격(Odd Pricing)",
+          "② 제한가격(Limit Pricing)",
+          "③ 약탈가격(Predatory Pricing)",
+          "④ 침투가격(Penetration Pricing)",
+          "⑤ 가격차별(Price Discrimination)"
+        ],
+        answer: 5,
+        explanation: "[해설]\n소비자의 가격탄력성에 따라 서로 다른 가격으로 판매하는 것은 가격차별에 해당한다.\n\n② [X] 잠재적인 경쟁자가 시장에 진입하는 것을 막기 위해 가격을 낮춰 유지하는 전략.\n\n정답: ⑤"
+      },
+      {
+        id: 20,
+        category: "거시경제",
+        question: "다음 중 국내총생산(GDP)에 대한 올바르지 않은 설명은?",
+        options: [
+          "① 자국 노동자가 해외에서 벌어들이는 소득은 GDP에 포함되지 않는다.",
+          "② 주가 변동으로 인한 시세 차익은 GDP에 포함되지 않는다.",
+          "③ 올해 판매되었더라도 지난해 생산된 상품은 올해 GDP에 포함되지 않는다.",
+          "④ 생산 측면의 GDP를 측정할 때는 최종재와 중간재의 시장가치를 모두 포함한다.",
+          "⑤ 지하경제를 통한 거래와 환경오염, 공공재의 가치 등이 GDP에 온전히 반영되지 못한다."
+        ],
+        answer: 4,
+        explanation: "[해설]\n① [O] 국내총생산은 국적이 아닌 국경을 기준으로 집계한다.\n② [O] 자산의 시세 차익은 생산 활동에 해당되지 않는다.\n③ [O] 재고품은 생산된 시점의 GDP에 재고투자 항목으로 포함된다.\n④ [X] 중간재의 가치를 제외하고 최종재의 시장가치만 더해 구한다.\n⑤ [O] 시장에서 거래되지 않지만 국민 생활에 영향을 주는 요인들이 GDP에 반영되지 않아 GDP로 실제 복지 수준을 측정하는 데는 한계가 있다.\n\n정답: ④"
+      },
+      {
+        id: 21,
+        category: "노동/고용",
+        question: "다음 중 노동시장에 대한 올바른 설명으로 가장 거리가 먼 것은? (단, 노동시장의 가로축은 노동시간을, 세로축은 명목임금을 나타내며, 모든 시장은 '완전 경쟁적'이다.)",
+        options: [
+          "① 물가 상승은 노동수요를 감소시킨다.",
+          "② '워라밸' 열풍의 확산은 노동공급을 감소시킨다.",
+          "③ 노동수요곡선의 높이는 노동의 한계생산가치를 나타낸다.",
+          "④ 균형임금보다 높게 설정된 최저임금은 비자발적 실업을 발생시킨다.",
+          "⑤ 노동공급곡선의 높이는 여가와 가사노동에 대한 노동자의 유보가격을 나타낸다."
+        ],
+        answer: 1,
+        explanation: "[해설]\n① [X] 제품 가격 상승은 노동의 한계생산가치를 증가시키므로 노동수요를 증가시킨다.\n② [O] 여가(Leisure)의 효용이 더 높아지므로 노동공급이 감소한다.\n③ [O] 기업은 '근로자 한 사람을 추가 고용했을 때 그가 만들어낸 생산물의 가치(한계생산가치)'가 임금과 같아질 때까지 고용을 확장하며 이러한 관계를 이용해 노동수요곡선을 도출한다.\n④ [O] 균형 임금보다 높게 설정된 최저임금은 노동시장에 초과공급을 발생시키므로 비자발적 실업이 발생한다.\n⑤ [O] 유보가격(유보임금)은 근로자가 여가와 가사노동을 한 단위 줄이고 노동시간을 한 단위 늘릴 때 받고자 하는 최소한의 급여 수준을 말하며, 유보임금이 낮은 사람부터 높은 사람 순으로 정렬한 것이 우상향하는 노동공급곡선이다.\n\n정답: ①"
+      },
+      {
+        id: 22,
+        category: "거시경제",
+        question: "다음 중 경기 변동 현상에 대한 가장 올바른 설명은?",
+        options: [
+          "① 자연실업률의 변화를 동반한다.",
+          "② 국민경제의 장기적인 생활 수준 개선을 가져온다.",
+          "③ 국민경제가 가진 잠재적인 생산능력의 변동을 뜻한다.",
+          "④ 주로 투자재와 내구재 소비지출의 변화로 인해 발생한다.",
+          "⑤ 경제가 회복기에 접어드는 경우 물가와 실업률이 동반 상승한다."
+        ],
+        answer: 4,
+        explanation: "[해설]\n① [X] 자연실업률은 실업급여, 노령연금, 최저임금과 같은 노동시장의 구조적 요인에 의해 결정되는 실업률이다.\n②, ③ [X] 장기적인 생활 수준과 경제의 생산능력 확대를 뜻하는 것은 장기적인 경제성장을 의미한다.\n④ [O] 경기 변동기에는 투자와 내구재 소비가 급증하면서 총수요가 변동하는 현상이 나타난다.\n⑤ [X] 경기 회복기에 실업률은 하락하는 현상이 나타난다.\n\n정답: ④"
+      },
+      {
+        id: 23,
+        category: "소비자행동",
+        question: "다음 중 '소득이 감소하였음에도 기존의 소비 습관으로 인해 한동안 기존 소비 수준을 유지하게 되는 현상'은?",
+        options: [
+          "① 톱니효과",
+          "② 편승효과",
+          "③ 스놉효과",
+          "④ 피구효과",
+          "⑤ 밴드왜건효과"
+        ],
+        answer: 1,
+        explanation: "[해설]\n② [X] 기업의 규모나 누적 생산량, 즉 경험이 축적됨에 따라 평균비용이 하락하는 현상으로 경험곡선효과라고도 한다.\n③ [X] 한 쪽의 문제를 해결하면 다른 쪽으로 문제가 옮겨가는 현상이다.\n④ [X] 하나의 제품을 구매하고 난 뒤 그에 어울릴 만한 다른 제품을 계속 구매하는 현상이다.\n⑤ [X] 특정 제품을 소비함으로써 그 제품이 연상시키는 집단과 자신을 동일시하는 현상이다.\n\n정답: ①"
+      },
+      {
+        id: 24,
+        category: "화폐금융",
+        question: "다음 중 '일정 기간 동안 경제 주체들 간 재화와 서비스거래, 소득분배에 평균적으로 화폐가 몇 번 쓰이는지'를 나타내는 경제 개념은?",
+        options: [
+          "① 유동성(Liquidity)",
+          "② 토빈의 q(Tobin's q)",
+          "③ 신용승수(Credit Multiplier)",
+          "④ 통화승수(Money Multiplier)",
+          "⑤ 화폐유통속도(Velocity of Money)"
+        ],
+        answer: 5,
+        explanation: "[해설]\n① [X] 현금성이나 현금화 정도를 뜻한다.\n② [X] 경제학자 제임스 토빈(James Tobin)이 제시한 개념으로 주식시장에서 평가된 기업의 시장가치를 재조달비용 즉 기업 실물자산의 대체비용(순자산가치)으로 나누어 구한다. 이론적으로 투자를 늘릴지 줄일지 결정하는 기능자 역할을 한다.\n③ [X] 은행의 대출을 통해 최초 예금의 몇 배에 해당하는 예금통화를 창출했는지 나타내는 지표이다.\n④ [X] 중앙은행이 발행한 현금통화인 본원통화 한 단위가 몇 배에 해당하는 시중통화를 창출했는지 나타내는 지표이다.\n\n정답: ⑤"
+      },
+      {
+        id: 25,
+        category: "국제금융",
+        question: "다음 중 원/달러 환율 상승의 영향에 대해 올바르게 설명한 것을 |보기|에서 모두 고르면? (단, 다른 조건은 일정하다.)<div class='passage-box'><strong>|보기|</strong><br>ㄱ. 한국의 대외 교역조건이 악화된다.<br>ㄴ. 한국 경제의 인플레이션 압력이 감소한다.<br>ㄷ. 한국 수출상품의 가격경쟁력이 높아진다.<br>ㄹ. 한국을 찾는 미국 관광객의 경비 부담이 증가한다.</div>",
+        options: [
+          "① ㄱ, ㄴ",
+          "② ㄱ, ㄷ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 2,
+        explanation: "[해설]\n원/달러 환율 상승은 원화 대비 달러의 가치가 높아졌다는 뜻이다.\n\nㄱ [O] 원/달러 환율이 상승하면 원화로 표시한 수입품의 가격이 비싸지므로 교역조건(수출한 단위와 교환할 수 있는 수입품의 양 또는 수입품에 대한 수출품의 가격)이 악화된다.\nㄴ [X] 원/달러 환율이 상승하면 수입물가가 상승하므로 경제의 인플레이션 압력이 고조된다.\nㄷ [O] 원/달러 환율 상승 시 달러화로 표시한 수출품의 가격이 싸지므로 가격경쟁력이 높아진다.\nㄹ [X] 원/달러 환율 상승 시 달러화 대비 원화의 가치가 낮아지므로 방문하는 미국 관광객의 경비 부담이 감소한다.\n\n정답: ②"
+      },
+      {
+        id: 26,
+        category: "미시경제",
+        question: "다음 중 시장실패 사례로 가장 올바른 것은?",
+        options: [
+          "① 환율 급변으로 수출기업의 환차손이 증가하였다.",
+          "② 원자재 가격 상승으로 물가가 상승하고 실질GDP가 감소하였다.",
+          "③ 생활필수품에 대한 가격상한제가 시행되어 암시장이 형성되었다.",
+          "④ 인수합병으로 소수 기업의 시장지배력이 확대되어 제품 가격이 상승하였다.",
+          "⑤ 정책 시차로 인해 경기 부양을 위한 정부 구매 확대가 경기 변동 폭을 오히려 확대시켰다."
+        ],
+        answer: 4,
+        explanation: "[해설]\n시장실패는 시장의 자원배분이 비효율성을 야기하는 경우로 독과점기업으로 인한 독과점, 외부효과, 공공재의 부재, 비대칭정보가 여기에 해당한다. 보기의 ④는 불완전 경쟁으로 인한 독과점에 해당하며 나머지는 시장실패와 무관하다.\n\n정답: ④"
+      },
+      {
+        id: 27,
+        category: "국제금융",
+        question: "다음 중 외환시장에서 원/달러 환율(₩/$)을 상승시키는 요인으로 가장 올바른 것은?",
+        options: [
+          "① 한국의 대외 수출 실적 개선",
+          "② 한국을 찾는 외국인 관광객 수의 증가",
+          "③ 외국인의 국내 기업 주식 매입",
+          "④ 미(美) 연준(Fed)의 기준금리 인상",
+          "⑤ 세계 경제의 불확실성 해소에 따른 달러화 선호현상 약화"
+        ],
+        answer: 4,
+        explanation: "[해설]\n원/달러 환율은 달러화 수요가 증가하거나 공급이 감소할 때 상승하고, 달러화 수요가 감소하거나 공급이 증가할 때 하락한다. 보기 ①, ②, ③은 달러화 공급의 증가 요인이고 ⑤는 달러화 수요의 감소 요인이다. 보기 ④는 달러화 수요의 증가 요인이다.\n\n정답: ④"
+      },
+      {
+        id: 28,
+        category: "국제금융",
+        question: "다음 <표>는 Y0년 뉴욕과 상하이 매장에서 판매된 빅맥 단품 가격과 명목환율을 나타낸다. 다음 중 이에 대한 올바른 분석으로 가장 거리가 먼 것은?<table class='data-table'><thead><tr><th>매장</th><th>빅맥 가격</th><th>명목환율</th></tr></thead><tbody><tr><td>뉴욕</td><td>5달러</td><td>1달러 = 7위안</td></tr><tr><td>상하이</td><td>35위안</td><td>-</td></tr></tbody></table>",
+        options: [
+          "① Y0년 달러화는 구매력에 비해 고평가 되어 있다.",
+          "② 뉴욕 매장에서 판매하는 빅맥을 위안화로 표시하면 35위안이다.",
+          "③ 구매력평가 이론에 따르면 장기적으로 위안/달러 환율은 상승할 것이다.",
+          "④ 구매력평가 이론에 따르면 뉴욕과 상하이 사이에는 교역 장애 요인이 존재할 것이다.",
+          "⑤ 만약 거래비용이 없다면 상하이 매장에서 빅맥을 구매한 뒤 뉴욕 매장에서 팔아 차익을 얻을 수 있다."
+        ],
+        answer: 3,
+        explanation: "[해설]\n① [O] 운송비용 등 교역에 장애가 되는 요인이 없다면 일물일가의 법칙에 의해 '35위안 = 환율 × 5달러'의 관계가 성립해야 한다. 따라서 구매력평가환율은 '1달러 = 6위안'이다. 하지만 외환시장에서 1달러는 7위안에 거래되고 있으므로 구매력에 비해 고평가 되어 있는 셈이다.\n② [O] 명목환율을 적용하면 뉴욕 매장의 빅맥은 35위안(=5달러 × 7위안/달러)이다.\n③ [X] 구매력평가환율은 '1달러 = 6위안'으로 명목환율보다 낮다. 따라서 장기적으로 위안/달러 환율은 하락할 것으로 보는 것이 합리적이다.\n④ [O] 미국과 중국 사이에 교역에 장애가 되는 요인이 일체 없다면 시장에서 형성된 명목환율은 구매력평가환율과 같을 것이다. 하지만 이 경우 양자가 서로 다르므로 교역에 장애가 되는 요인이 있다고 볼 수 있다.\n⑤ [O] 달러화로 환산한 빅맥 가격은 상하이 매장에서 약 4.29달러이므로 상하이 매장에서 빅맥을 구매해 뉴욕 매장에 팔면 빅맥 하나당 약 0.71달러의 차익을 얻을 수 있다.\n\n정답: ③"
+      },
+      {
+        id: 29,
+        category: "거시/금융",
+        question: "다음 기사에 대한 올바른 반응으로 가장 거리가 먼 것은?<div class='passage-box'><strong>[NEWS]</strong><br>12월 FOMC 정례회의를 마친 후 이틀 연속 연준(Fed)은 \"미국의 고용지표와 물가지표를 면밀히 검토한 결과 알아도 3월까지는 자산매입 축소를 완료하고 연내 세 차례 이상 기준금리를 인상하는 것이 바람직하다는 결론에 도달했다\"고 발표했다.</div>",
+        options: [
+          "① 한국도 곧 추가 금리 인상이 있겠군!",
+          "② 현재 미국은 고용 상황이 나쁘지 않은가봐!",
+          "③ 앞으로 달러화 자산에 투자하는 것은 더 이상 바람직하지 않겠어!",
+          "④ 현재 미국의 소비자물가지수는 빠르게 상승하고 있는 것으로 보여!",
+          "⑤ 한국은 가계부채 문제가 심각한데 향후 이자상환 부담이 더 크게 늘겠어!"
+        ],
+        answer: 3,
+        explanation: "[해설]\n① [O] 미(美) 연준(Fed)이 기준금리를 연거푸 인상하면 자본 유출을 막고 환율을 안정시키기 위해서 한국은행도 기준금리를 올려야 함을 알 수 있다.\n② [O] 미국은 연준(Fed)의 급격한 자산매입 축소(테이퍼링)와 기준금리 인상 계획은 고용이 호조 근거를 대고 있으므로 현재 미국은 고용 상황은 충분히 회복했거나 견고한 것으로 볼 수 있다.\n③ [X] 미(美) 연준(Fed)의 기준금리 인상은 통화 긴축으로 이어지므로 달러화 자산에 투자할 시 수익성을 기대할 수 있다.\n④ [O] 미(美) 연준(Fed)이 연거푸 태세를 바꾸어 기준금리를 인상하는 것이 필요하다는 것은 현재 미국의 소비자물가지수가 빠르게 상승하고 있는 등 물가 불안이 지속되고 있기 때문으로 해석할 수 있다.\n⑤ [O] 미 연준(Fed)의 급격한 기준금리 인상은 한국은행의 기준금리 인상으로 이어질 가능성이 크다. 따라서 시중 금리의 인상으로 가계부채의 이자부담도 크게 늘 수 있다.\n\n정답: ③"
+      },
+      {
+        id: 30,
+        category: "국제금융",
+        question: "현재 한국과 미국 채권시장의 명목이자율은 각각 2.3%와 1.8%이며, 외환시장에서 1달러는 1,200원에 거래되고 있다. 양국 사이에 이자율평가가 성립할 때, 1년 후 원/달러 환율(₩/$)에 대한 가장 합리적인 예측치는?",
+        options: [
+          "① ₩1,194/$",
+          "② ₩1,204/$",
+          "③ ₩1,210/$",
+          "④ ₩1,196/$",
+          "⑤ ₩1,206/$"
+        ],
+        answer: 5,
+        explanation: "[해설]\n1년 후 원/달러 예상 환율을 S<sup>e</sup>라고 하면 이자율평가에 의해 '2.3% - 1.8% = (S<sup>e</sup> - ₩1,200/$) / ₩1,200/$'의 관계가 성립한다. 이 식을 S<sup>e</sup>에 관해 풀면 'S<sup>e</sup> = ₩1,206/$'이다.\n\n정답: ⑤"
+      },
+      {
+        id: 31,
+        category: "미시/생산비용",
+        question: "다음 중 아래의 사례에 대한 올바른 설명은?<div class='passage-box'><strong>[사례]</strong><br>사업가 A는 푸드 트럭을 한 대 빌려 주차장에서 햄버거를 만들어 판매하려고 한다. 푸드 트럭 임대료는 5만 원이며, 직원 한 명당 임금은 1만 원이다. 햄버거의 개당 판매가는 1천 원이며 가격은 5천 원이고, 만들어진 것은 모두 판매된다. 한편, 고용한 직원 수에 따른 햄버거 생산량은 아래 표와 같다.</div><table class='data-table'><thead><tr><th>직원 수(명)</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr></thead><tbody><tr><td>생산량(개)</td><td>10</td><td>18</td><td>24</td><td>27</td><td>28</td></tr></tbody></table>",
+        options: [
+          "① 노동의 한계생산물은 일정하다.",
+          "② 규모의 수확 불변이 나타나고 있다.",
+          "③ 푸드 트럭 임대료는 가변비용에 해당한다.",
+          "④ 직원을 4명 고용할 때 이윤이 극대화 된다.",
+          "⑤ 직원을 1명 고용할 때 평균비용은 2천원이다."
+        ],
+        answer: 4,
+        explanation: "[해설]\n① [X] 노동의 한계생산물은 '1명→2명'일 때 8개, '2명→3명'일 때 6개, '3명→4명'일 때 3개, '4명→5명'일 때 1개이다. 따라서 노동의 한계생산물은 점감한다.\n② [X] 기업과 수확 측정 개념은 생산요소가 2개 이상일 때 적용되는 개념으로 모든 생산요소를 동일한 비율로 늘렸을 때 생산량이 생산요소를 늘린 것보다 더 많이 증가한 경우를 규모의 수확 증가라고 하며, 타 적게 증가한 경우를 규모의 수확 감퇴라고 한다. 또한, 생산요소를 늘린 만큼 생산량이 늘면 규모의 수확 불변이라고 한다.\n③ [X] 푸드 트럭 임대료 5만 원은 생산량과 상관없이 일정하므로 고정비용에 해당한다.\n④ [O] 한계이윤은 '1명→2명'일 때 2천 원(=4만 원-1.8만 원), '2명→3명'일 때 2천 원(=3만 원-1.8만 원), '3명→4명'일 때 -0.2만 원(=1.8만 원-1.3만 원), '4명→5명'일 때 -0.8만 원(=0.5만 원-1.1만 원)이므로 따라서 4명까지 고용할 때 이윤이 극대화된다.\n⑤ [X] 직원을 1명 고용할 때 총비용은 인건비 1만 원, 재료비 1만 원, 그리고 푸드 트럭 임대료 5만 원을 모두 더한 7만 원이다. 따라서 총비용을 생산량의 양으로 나누는 평균비용은 7천 원이다.\n\n정답: ④"
+      },
+      {
+        id: 32,
+        category: "거시/GDP",
+        question: "다음 표는 Y0~Y4년 K국의 명목GDP 증가율과 전년 대비 GDP디플레이터의 증가율을 나타낸 것이다. 다음 중 이에 대한 올바른 분석은?<div class='table-unit'>(단위: %)</div><table class='data-table'><thead><tr><th>연도</th><th>Y0</th><th>Y1</th><th>Y2</th><th>Y3</th><th>Y4</th></tr></thead><tbody><tr><td>명목GDP 증가율</td><td>1</td><td>5</td><td>5</td><td>2</td><td>2</td></tr><tr><td>GDP디플레이터 증가율</td><td>1</td><td>3</td><td>4</td><td>2</td><td>-1</td></tr></tbody></table>",
+        options: [
+          "① Y1년과 Y2년 명목GDP는 일정하다.",
+          "② Y2년부터 경기 상승기에 접어들고 있다.",
+          "③ Y3년 실질GDP는 전년과 같다.",
+          "④ Y3년에 경기는 저점에 도달하였다.",
+          "⑤ Y4년에 화폐가치 하락이 가장 심했다."
+        ],
+        answer: 3,
+        explanation: "[해설]\n명목GDP 증가율은 실질GDP 증가율과 GDP디플레이터 증가율의 합과 같다. 따라서 Y0~Y4년의 실질GDP 증가율은 아래 표와 같이 계산된다.\n\n<표> (단위: %)\n[연도: Y0, Y1, Y2, Y3, Y4 | 실질GDP 증가율: 0, 2, 1, 0, 3]\n\n① [X] Y1년, Y2년의 명목GDP는 전년에 비해 5% 증가했다.\n② [X] Y2년의 실질GDP 증가율이 하락하면서 경기가 둔화되고 있다.\n③ [O] Y3년 실질GDP 증가율은 0%이므로 전년과 같다.\n④ [X] K국의 실질GDP는 Y0~Y3년까지 계속 증가했다.\n⑤ [X] Y4년의 GDP디플레이터 증가율은 음의 값을 가지므로 화폐가치가 상승했다고 볼 수 있다.\n\n정답: ③"
+      },
+      {
+        id: 33,
+        category: "고용/통계",
+        question: "다음 표는 Y0~Y2년 K국의 주요 고용통계이다. 다음 중 이에 대한 올바른 해석을 |보기|에서 모두 고르면?<div class='table-unit'>(단위: 만 명, %)</div><table class='data-table'><thead><tr><th>구분</th><th>Y0</th><th>Y1</th><th>Y2</th></tr></thead><tbody><tr><td>생산가능인구</td><td>100</td><td>100</td><td>90</td></tr><tr><td>비경제활동인구</td><td>10</td><td>15</td><td>15</td></tr><tr><td>고용률</td><td>76</td><td>70</td><td>60</td></tr></tbody></table><div class='passage-box'><strong>|보기|</strong><br>ㄱ. Y2년의 실업률은 4%이다.<br>ㄴ. 취업자 수는 Y1년에 가장 적다.<br>ㄷ. 실업자 수는 Y0년에 가장 적다.<br>ㄹ. 경제활동인구는 Y1년에 가장 많다.</div>",
+        options: [
+          "① ㄱ, ㄴ",
+          "② ㄱ, ㄷ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 1,
+        explanation: "[해설]\n주요 고용통계의 산식은 아래와 같다.\n· 생산가능인구 = 경제활동인구 + 비경제활동인구\n· 경제활동인구 = 취업자 + 실업자\n· 실업률 = (실업자 / 경제활동인구) × 100\n· 고용률 = (취업자 / 생산가능인구) × 100\n\nㄱ [O] Y2년의 취업자는 54만 명, 실업자는 3만 명, 경제활동인구는 75만 명이다. 따라서 실업률은 4%이다.\nㄴ [X] 취업자 수는 Y0년 76만 명, Y1년 70만 명, Y2년 54만 명으로 Y2년에 가장 적다.\nㄷ [X] 실업자 수는 Y0년 14만 명, Y1년 15만 명, Y2년 3만 명으로 Y2년에 가장 적다.\nㄹ [X] 경제활동인구는 Y0년 90만 명, Y1년 85만 명, Y2년 75만 명으로 Y0년에 가장 많다.\n\n정답: ①"
+      },
+      {
+        id: 34,
+        category: "미시/정보경제",
+        question: "다음의 밑줄 친 ㉠, ㉡을 통해 예방하고자 하는 시장실패 사례를 올바르게 짝지은 것은?<div class='passage-box'>· 기업 이사회는 새 CEO를 선임하면서 그가 성실하게 경영활동을 수행하도록 <strong>㉠ 파격적인 성과급</strong>을 제시하였다.<br>· 신규 직원 채용 과정에서 입사 지원자의 능력을 파악하기 위해 <strong>㉡ 보유 자격증 제출</strong>을 요구하고 입사 시험을 실시하였다.</div><table class='data-table'><thead><tr><th>구분</th><th>㉠</th><th>㉡</th></tr></thead><tbody><tr><td>①</td><td>역선택</td><td>도덕적 해이</td></tr><tr><td>②</td><td>역선택</td><td>무임승차자의 문제</td></tr><tr><td>③</td><td>무임승차자의 문제</td><td>도덕적 해이</td></tr><tr><td>④</td><td>도덕적 해이</td><td>역선택</td></tr><tr><td>⑤</td><td>도덕적 해이</td><td>무임승차자의 문제</td></tr></tbody></table>",
+        options: [
+          "① ①",
+          "② ②",
+          "③ ③",
+          "④ ④",
+          "⑤ ⑤"
+        ],
+        answer: 4,
+        explanation: "[해설]\n밑줄 친 ㉠은 도덕적 해이를 방지하기 위한 유인 설계에 해당하고 ㉡은 비대칭정보로 인한 역선택을 해소하기 위한 선별(신호전달)에 해당한다.\n\n정답: ④"
+      },
+      {
+        id: 35,
+        category: "미시/수요탄력성",
+        question: "다음의 밑줄 친 (가)에 대한 가장 올바른 해석은?<div class='passage-box'>'오일쇼크로 휘발유 가격이 급등했을 당시 소비자들은 휘발유 소비를 당장 줄이기 어렵기 때문에 심각한 경제적 고통을 겪었다. <u>(가)하지만 시간이 흐르면서 소비자들은 연비(km/ℓ)가 높은 자동차를 구하거나 휘발유를 절약하는 방안을 찾았고, 이에 따라 자연히 휘발유 소비도 크게 감소했다.</u>'</div>",
+        options: [
+          "① 휘발유는 사치재에 해당한다.",
+          "② 휘발유는 완전경쟁시장에서 거래된다.",
+          "③ 휘발유 수요는 단기보다 장기에 가격 변화에 대해 더 탄력적이다.",
+          "④ 휘발유는 대체재를 찾기 어려운 필수재로 수요의 가격탄력도가 장단기에 걸쳐 일정하게 유지된다.",
+          "⑤ 휘발유 공급은 시장지배력을 가진 소수 기업에 의해 이루어지므로 공급의 가격탄력도는 장기에도 대단히 작다."
+        ],
+        answer: 3,
+        explanation: "[해설]\n밑줄 친 (가)는 미반 재화의 가치 상승을 목적 재화의 수요를 줄이고 상대적으로 싸진 대체재의 수요를 늘리는 연쇄적 대체효과에 해당한다.\n\n② [X] 지문은 수요의 소득탄력성이 1보다 큰 사치재와는 무관하다.\n③ [X] 지문은 공급의 가격탄력성에 의한 공급량을 시효받는 소수 공급자에 의해 생산 공급되므로 과점시장에서 제약된다고 보는 것이 적절하다.\n④ [O] 휘발유 가격의 이윤발생을 재 일시적으로 대체재를 찾기 어려워 고통을 부담하지만 시간이 지난 뒤 유류효율을 증대하는 방법을 찾거나 등 장기적선택보다 단기적 가격 변화에 더 탄력적이라고 볼 수 있다.\n⑤ [X] 유발효과를 결정하는 방법을 장기적으로 확정하기 때문 장기보다 단기에 가격 변화에 더 탄력적이다.\n\n숫자 운영의 내용 자체는 옳지만 (가)의 활용과는 무관하다.\n\n정답: ③"
+      },
+      {
+        id: 36,
+        category: "거시/재정",
+        question: "다음 기사는 지난해 9월 시행된 '코로나 상생 국민지원금' 지급 정책에 관한 기사이다. 이 기사의 밑줄 친 (가)~(다)에 대한 올바른 설명을 |보기|에서 모두 고르면?<div class='passage-box'><strong>[NEWS]</strong><br>국민 1인당 25만원씩 받는 <strong>(가) '코로나 상생 국민지원금'</strong> 지급이 9월 6일부터 시행됐다. 지원대상은 <strong>(나) 소득하위 80% 가구의 소득이 180%를 기준으로 삼되</strong> 소득 수준이 낮고 가구원 수가 많을수록 대상에 포함되도록 고려했다. 정부는 국비와 지방비 88% 지원금을 받을 수 있을 것으로 전망하고 있다. 이번 국민지원금은 <strong>(다) 전통시장, 동네 마트, 식당 등으로 사용처가 정해져 있으며</strong> 사용 기한은 2021년 12월 31일까지이다.</div><div class='passage-box'><strong>|보기|</strong><br>ㄱ. (가)는 이전지출에 포함된다.<br>ㄴ. (가)는 경제의 총공급을 증가시켜 물가안정과 실질GDP성장률 제고에 기여할 것이다.<br>ㄷ. (나)와 같이 지원 대상을 한정함으로써 제약된 예산으로 경기 부양 효과를 제고할 수 있다.<br>ㄹ. (다)와 같이 사용처를 한정하는 것은 소비자 주권을 침해해 가계의 효용 극대화를 제약한다.</div>",
+        options: [
+          "① ㄱ, ㄴ",
+          "② ㄱ, ㄷ",
+          "③ ㄱ, ㄹ",
+          "④ ㄴ, ㄷ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 2,
+        explanation: "[해설]\nㄱ [O] (가)는 정부에서 인간으로 소득이 이전되는 이전지출에 해당한다.\nㄴ [X] (가)는 이전지출로 가계의 처분가능소득을 높여 소비지출을 늘리는 요인이 된다. 소비지출은 총수요의 구성 요소이므로 이전지출 증가는 총수요를 증가시킨다.\nㄷ [O] 소득이 낮을수록 한계소비성향(소득이 한 단위 늘었을 때 소비지출이 증가하는 정도)이 높다. 따라서 (나)와 같이 지원 대상을 소득이 적은 그룹에 한정함으로써 총수요 견인을 통한 경기 부양 효과를 최대화할 수 있다.\nㄹ [X] 사용처를 한정하는 것은 정책의 취지를 감안하는 효과가 있지만 소비자 주권을 침해하는 면도 있다.\n\n정답: ②"
+      },
+      {
+        id: 37,
+        category: "국민소득",
+        question: "다음 그림은 '국민소득 3면 동가의 법칙'을 도시화한 것이다. 다음 중 이에 대한 올바른 설명을 |보기|에서 모두 고르면?<div class='diagram-box'><svg viewBox='0 0 400 210' style='width:100%; max-width:400px; display:block; margin:0 auto;'><rect x='140' y='10' width='120' height='40' rx='6' fill='#eff6ff' stroke='#2563eb' stroke-width='2'/><text x='200' y='35' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>생산 국민소득</text><rect x='20' y='150' width='120' height='40' rx='6' fill='#eff6ff' stroke='#2563eb' stroke-width='2'/><text x='80' y='175' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>분배 국민소득</text><rect x='260' y='150' width='120' height='40' rx='6' fill='#eff6ff' stroke='#2563eb' stroke-width='2'/><text x='320' y='175' text-anchor='middle' font-size='14' font-weight='bold' fill='#1e293b'>지출 국민소득</text><path d='M 140 45 L 80 140' stroke='#64748b' stroke-width='2' marker-end='url(#arrow)'/><text x='95' y='85' font-size='13' font-weight='bold' fill='#2563eb' text-anchor='middle'>(가)</text><path d='M 260 45 L 320 140' stroke='#64748b' stroke-width='2' marker-end='url(#arrow)'/><text x='305' y='85' font-size='13' font-weight='bold' fill='#2563eb' text-anchor='middle'>(나)</text><path d='M 140 170 L 255 170' stroke='#64748b' stroke-width='2' stroke-dasharray='4' marker-end='url(#arrow)'/><text x='198' y='163' font-size='13' font-weight='bold' fill='#2563eb' text-anchor='middle'>(다)</text><defs><marker id='arrow' viewBox='0 0 10 10' refX='6' refY='5' markerWidth='6' markerHeight='6' orient='auto-start-reverse'><path d='M 0 0 L 10 5 L 0 10 z' fill='#64748b'/></marker></defs></svg></div><div class='passage-box'><strong>|보기|</strong><br>ㄱ. (가)는 분배 국민소득에 해당한다.<br>ㄴ. (나)는 재화 구매에 쓴 금액을 뜻한다.<br>ㄷ. 기업의 투자는 (다)에 해당한다.<br>ㄹ. 만약 (가)와 (나)의 길이를 바꾼다면, 순자본유출이 발생했음을 뜻한다.</div>",
+        options: [
+          "① ㄱ, ㄴ",
+          "② ㄱ, ㄷ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 2,
+        explanation: "[해설]\n순이익(A)는 요소소득으로 분배 국민소득에 해당한다.\n\nㄴ [X] (나)는 노동력을 제공한 대가로 받는 요소소득이다.\nㄷ [O] 공장 증축은 기업의 투자 지출에 해당한다.\nㄹ [X] 경상수지와 자본수지에 의해 금융거래를 차감한 국제수지는 사후적으로 항상 0이다. 즉 오차와 누락이 없다면 '경상수지+자본수지+금융계정=0'이 성립한다. 순수출+수출수입이 없으면 경상수지가 0이 아니고 경상수지+자본수지>금융계정으로 국민소득이 지출을 초과하여 여유 자금이 생긴다는 뜻이다. 이 경우 여유 자금이 해외 금융자산 취득으로 이어지므로 순자본유출이 발생한다. 이 경우 해외 순자산은 증가한다.\n\n정답: ②"
+      },
+      {
+        id: 38,
+        category: "거시/통화",
+        question: "다음 기사를 바탕으로 미국의 경제 상황에 대해 올바르게 분석한 것으로 가장 거리가 먼 것은?<div class='passage-box'><strong>[NEWS]</strong><br>최근 물가상승률과 고용지표가 발표되면서 미(美) 연준(Fed) 내부에서 테이퍼링 가속화를 시사하는 발언이 이어지고 있다. 이미 시장에서는 제롬 파월 연준 의장을 비롯한 위원들이 들고 있는 몽둥이(테이퍼링)를 언제 휘두를 것인지에 관심이 쏠리고 있다. 한편 언론은 국채와 MBS 등 자산 매입을 축소해 시중 유동성을 줄여가는 속도를 올리고 있으며, 다음 주 회의에서는 단축 검토를 높이었다는 언론의 내용을 관측로 분류했다. 이 경우 예정보다 들고 시점도 당겨질 수 있다.</div>",
+        options: [
+          "① 물가상승률이 당초 예상치를 상회하고 있을 것이다.",
+          "② 연준은 오는 3월까지는 기존의 통화정책 기조를 유지할 가능성이 크다.",
+          "③ 오는 3월 이후부터는 본격적으로 시중 유동성을 축소하는 방향으로 통화정책 운용기조가 전환될 가능성이 크다.",
+          "④ 연준은 현재 경제 동향에 대한 본인들의 시각을 시장과 공유하고 있으며 향후 통화정책 기조에 대한 정보를 넌지시 보내고 있다.",
+          "⑤ 현재 연준은 고용지표가 개선되는 속도가 충분하지 않다고 판단해 경기부양 차원의 추가 유동성 공급 확대가 있을 것임을 시사하고 있다."
+        ],
+        answer: 5,
+        explanation: "[해설]\n① [O] 통화긴축의 강도를 높이겠다는 언언으로 미루어 보아 물가상승률이 연준(Fed)의 당초 예상치를 상회하고 있음을 추정할 수 있다.\n② [X] 테이퍼링(매입 축소)은 통화 공급량을 증가시키되 그 속도를 줄이는 것이다. 테이퍼링을 3월에 종료할 계획이므로 3월까지는 시중 통화량을 늘리는 정책이 지속될 가능성이 크다.\n③ [O] 현재 연준의 발언으로 미루어 보면 3월 이후부터는 기준금리 인상 등 본격적으로 시중 통화량을 회수하는 정책으로 선회할 것이다.\n④ [O] 연준은 현재 자신들이 파악한 경제 상황에 대해 정돈된 내용과 향후 통화정책 방향에 대해 빛나는 등 꾸준한 의사소통을 꾀하고 있다. 이처럼 통화긴축으로 인한 부작용을 줄이기 위해 사전에 향후 통화정책 스탠스나 방향성에 대한 정보를 고지하는 것을 사전지침(포워드 가이던스)이라고 한다.\n⑤ [X] 현재 연준은 통화긴축 정책 시행 시점을 앞당기고 있다. 따라서 현재 고물가나 경기보다 물가 상승 위험이 더 크다고 판단하고 있다.\n\n정답: ⑤"
+      },
+      {
+        id: 39,
+        category: "거시/총수요-총공급",
+        question: "최근 K국에서는 가계 소비 위축으로 인해 다음 그림과 같이 총수요가 감소했다. 이때 경기 부양을 위해 K국에서 취해야 할 올바른 정책을 |보기|에서 모두 고르면?<div class='diagram-box'><svg viewBox='0 0 360 210' style='width:100%; max-width:360px; display:block; margin:0 auto;'><line x1='40' y1='20' x2='40' y2='170' stroke='#334155' stroke-width='2'/><line x1='40' y1='170' x2='340' y2='170' stroke='#334155' stroke-width='2'/><text x='15' y='25' font-size='12' font-weight='bold' fill='#1e293b'>물가 ↑</text><text x='270' y='190' font-size='12' font-weight='bold' fill='#1e293b'>총생산 ────────></text><line x1='70' y1='150' x2='270' y2='30' stroke='#059669' stroke-width='2'/><text x='275' y='35' font-size='12' font-weight='bold' fill='#059669'>총공급</text><line x1='90' y1='30' x2='290' y2='150' stroke='#2563eb' stroke-width='2'/><text x='295' y='150' font-size='12' font-weight='bold' fill='#2563eb'>총수요1</text><circle cx='180' cy='84' r='5' fill='#2563eb'/><text x='185' y='78' font-size='13' font-weight='bold' fill='#2563eb'>A</text><line x1='50' y1='30' x2='250' y2='150' stroke='#ef4444' stroke-width='2' stroke-dasharray='4'/><text x='210' y='165' font-size='12' font-weight='bold' fill='#ef4444'>총수요2</text><circle cx='140' cy='108' r='5' fill='#ef4444'/><text x='125' y='105' font-size='13' font-weight='bold' fill='#ef4444'>B</text><path d='M 170 90 L 145 102' stroke='#1e293b' stroke-width='2' marker-end='url(#arrow2)'/><defs><marker id='arrow2' viewBox='0 0 10 10' refX='6' refY='5' markerWidth='6' markerHeight='6' orient='auto-start-reverse'><path d='M 0 0 L 10 5 L 0 10 z' fill='#1e293b'/></marker></defs></svg></div><div class='passage-box'><strong>|보기|</strong><br>ㄱ. 소득세율 인상<br>ㄴ. 기준금리 인상<br>ㄷ. 실업급여 지급액 인상<br>ㄹ. 사회간접자본 투자 증대</div>",
+        options: [
+          "① ㄱ, ㄷ",
+          "② ㄱ, ㄹ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 5,
+        explanation: "[해설]\n경기 부양을 위해서는 총수요나 총공급을 늘리는 정책을 시행해야 한다.\n\nㄱ [X] 소득세율 인상은 처분가능소득을 줄여 가계 소비를 더 위축시키고 이는 총수요 감소로 이어진다.\nㄴ [X] 기준금리 인상은 시중금리 상승으로 이어져 가계 소비와 기업 투자 등 민간수요를 위축시킨다. 따라서 이 경우 총수요가 감소한다.\nㄷ [O] 실업급여 지급 확대는 가계의 처분가능소득을 늘려 가계 소비를 증가시킨다. 따라서 이 경우 총수요가 증가한다.\nㄹ [O] 사회간접자본 투자 증대는 정부지출 확대에 해당하므로 총수요 증가로 이어진다.\n\n정답: ⑤"
+      },
+      {
+        id: 40,
+        category: "미시/공공재",
+        question: "다음 그림은 경합성과 배제성의 정도에 따라 재화를 A~D로 구분한 것이다. 각 재화에 대한 가장 올바른 설명은? (단, A~D는 각각 사적재, 클럽재, 공유재, 공공재 중 하나에 해당한다.)<div class='matrix-wrapper'><div class='matrix-box'><div class='matrix-inner'><div class='matrix-y-title'>배제성</div><div class='matrix-y-scale'><span>크다</span><span>작다</span></div><div class='matrix-grid'><div class='matrix-cell'><span class='cell-symbol'>A</span><span class='cell-title'>클럽재</span></div><div class='matrix-cell'><span class='cell-symbol'>D</span><span class='cell-title'>사적재</span></div><div class='matrix-cell'><span class='cell-symbol'>B</span><span class='cell-title'>공공재</span></div><div class='matrix-cell'><span class='cell-symbol'>C</span><span class='cell-title'>공유재</span></div></div><div class='matrix-x-scale'><span>작다</span><span>크다</span></div><div class='matrix-x-title'>경합성</div></div></div></div>",
+        options: [
+          "① A는 소유권의 부재로 인해 남용되는 문제가 발생한다.",
+          "② 한산한 공공도서관의 개방형 Wi-Fi는 B의 사례이다.",
+          "③ B는 재화의 추가 소비를 위한 사회적 비용이 0이다.",
+          "④ 넷플릭스 콘텐츠는 C의 사례이다.",
+          "⑤ D가 완전 경쟁적인 시장에서 거래되는 경우 사회적으로 효율적인 수준보다 과소 공급되는 경향이 있다."
+        ],
+        answer: 3,
+        explanation: "[해설]\nA는 클럽재, B는 공공재, C는 공유재, D는 사적재이다.\n\n① [X] 공공재는 비배재성과 비경합성의 특성을 가지므로 소유권이 명확하다.\n② [X] '한산한 공공도서관의 개방형 Wi-Fi'는 비경합성과 비배재성을 띠는 공공재(B)의 사례이다.\n③ [O] 공공재는 경합성이 작기 때문에 재화의 추가 소비에 따른 사회적 비용이 0이다.\n④ [X] 넷플릭스 콘텐츠는 클럽재(A)에 해당한다.\n⑤ [X] D는 사적재로 완전 경쟁적인 시장에서 사회적으로 효율적인 수준만큼 공급된다.\n\n정답: ③"
+      },
+      {
+        id: 41,
+        category: "국제금융/환율",
+        question: "다음 그림과 같이 '달러화 대비 원화의 환율'을 변동시키는 요인을 |보기|에서 모두 고르면? (단, 다른 조건은 일정하다.)<div class='diagram-box'><svg viewBox='0 0 320 170' style='width:100%; max-width:320px; display:block; margin:0 auto;'><line x1='50' y1='20' x2='50' y2='130' stroke='#334155' stroke-width='2'/><line x1='50' y1='130' x2='290' y2='130' stroke='#334155' stroke-width='2'/><text x='10' y='25' font-size='11' font-weight='bold' fill='#1e293b'>환율 (₩/$)</text><line x1='45' y1='40' x2='280' y2='40' stroke='#cbd5e1' stroke-dasharray='2'/><text x='2' y='44' font-size='10' fill='#475569'>₩1,200</text><line x1='45' y1='90' x2='280' y2='90' stroke='#cbd5e1' stroke-dasharray='2'/><text x='2' y='94' font-size='10' fill='#475569'>₩1,000</text><line x1='100' y1='40' x2='240' y2='90' stroke='#2563eb' stroke-width='3'/><circle cx='100' cy='40' r='5' fill='#2563eb'/><circle cx='240' cy='90' r='5' fill='#2563eb'/><text x='95' y='150' font-size='12' font-weight='bold' fill='#1e293b'>Y0</text><text x='235' y='150' font-size='12' font-weight='bold' fill='#1e293b'>Y1</text></svg></div><div class='passage-box'><strong>|보기|</strong><br>ㄱ. 한국 기업의 실적 부진<br>ㄴ. 한국의 국가신용등급 상향 조정<br>ㄷ. 한국의 무역수지 흑자 규모 확대<br>ㄹ. 미(美) 연준(Fed)의 기준금리 인상</div>",
+        options: [
+          "① ㄱ, ㄴ",
+          "② ㄱ, ㄷ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 3,
+        explanation: "[해설]\nY0~Y1 기간 중 원/달러 환율이 하락했고 이는 원화 대비 달러화의 가치가 하락했다.\n\nㄱ [X] 한국 기업의 실적 부진은 자본시장에서 외국인 이탈을 야기하는 요인으로 달러화 수요를 늘려 원/달러 환율을 상승시킨다.\nㄴ [O] 한국의 국가신용등급 상향 조정은 한국 자본시장 투자 시 국가 위험을 낮춰 자금을 유입하게 하는 요인이다. 이 경우 달러화 공급이 늘어 원/달러 환율이 하락한다.\nㄷ [O] 한국의 무역수지 흑자 규모 확대는 달러화 공급을 늘려 원/달러 환율을 하락시킨다.\nㄹ [X] 미(美) 연준(Fed)의 기준금리 인상은 미국 국채에 대한 투자자들의 선호도를 높여 자본시장에서 자금이 이탈하게 한다. 이 경우 달러화 수요가 높아 원/달러 환율이 상승한다.\n\n정답: ③"
+      },
+      {
+        id: 42,
+        category: "미시/수요탄력성",
+        question: "다음 표는 A~D재 가격을 모두 5% 인상했을 때 판매수입의 변화율을 나타낸 것이다. 다음 중 이에 대한 올바른 설명을 |보기|에서 모두 고르면?<table class='data-table'><thead><tr><th>구분</th><th>A재</th><th>B재</th><th>C재</th><th>D재</th></tr></thead><tbody><tr><td>판매수입 변화율</td><td>5%</td><td>0%</td><td>-5%</td><td>10%</td></tr></tbody></table><div class='passage-box'><strong>|보기|</strong><br>ㄱ. A재 수요는 완전 탄력적이다.<br>ㄴ. B재 수요는 단위 탄력적이다.<br>ㄷ. C재 수요는 비탄력적이다.<br>ㄹ. D재는 수요의 법칙이 성립하지 않는다.</div>",
+        options: [
+          "① ㄱ, ㄷ",
+          "② ㄱ, ㄹ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 4,
+        explanation: "[해설]\n'판매수입 = 가격 × 판매량'이므로 '판매수입변화율(%) ≒ 가격변화율(%) + 판매량변화율(%)'의 관계가 성립한다.\n\nㄱ [X] A재의 판매량변화율은 0%로 수요가 가격에 대해 완전 비탄력적이다.\nㄴ [O] B재의 판매량변화율은 -5%로 수요가 가격에 대해 단위 탄력적이다.\nㄷ [X] C재의 판매량변화율은 -10%로 수요가 가격에 대해 탄력적이다.\nㄹ [O] D재의 판매량변화율은 5%로 가격이 상승했을 때 수요량이 증가했다. 따라서 수요의 법칙이 성립하지 않는다.\n\n정답: ④"
+      },
+      {
+        id: 43,
+        category: "노동/실업",
+        question: "다음 기사의 밑줄 친 (가)와 같은 사건으로 발생하는 유형의 실업을 감소시키기 위한 정책으로 가장 적절한 것은?<div class='passage-box'><strong>[NEWS]</strong><br>미국 은행업계가 앞으로 10년간 최대 30% 정도 지점을 감축하게 될 것이라고 18일(현지시간) 일급기사가 불어닥친 은행 문제보고서를 인용해 보도했다. 보고서는 금융 소비자의 행태가 변하고 있고, 테크 기업과 비은행 기업들이 신용, 대출업무의 일정 부분을 도둑맞아 빼앗기는 상황에서 은행이 업무 효율성과 생산성을 높이기 위해서는 사람보다 컴퓨터에 더 투자해야 한다고 보았다.</div>",
+        options: [
+          "① 취업정보 제공",
+          "② 정부구매 증가",
+          "③ 직업훈련 실시",
+          "④ 최저임금 인상",
+          "⑤ 실업수당 확대"
+        ],
+        answer: 3,
+        explanation: "[해설]\n밑줄 친 (가)는 산업구조 변화에 따른 구조적 실업을 뜻한다. 이러한 유형의 실업은 이직과 구직이 용이하지 않아 장기화·정착화되는 경향이 있다. 이러한 종류의 실업을 줄이기 위한 가장 효과적인 대책은 직업훈련 실시이다.\n\n①은 마찰적 실업에, ②는 경기적 실업에 효과적인 대책이며, ⑤는 단순 실업을 줄이기 위한 대책으로 볼 수 없다.\n\n정답: ③"
+      },
+      {
+        id: 44,
+        category: "거시/통화정책",
+        question: "다음 기사에 나타난 통화정책에 대한 올바른 설명을 |보기|에서 모두 고르면?<div class='passage-box'><strong>[NEWS]</strong><br>한국은행이 기준금리 인상은 수입물가를 인하시켜 물가 안정에 어느 정도 기여할 것이라고 판단했다. 금융통화위원회는 올 들어 두 차례 기준금리 인상은 이미 시장에 반영된 상황 대표적인 미국 연준의 고강도 인플레이션 압력 속에서 한국은행의 기준금리 추가 인상이 가시화되면 한국경제도 환율의 인상 기조에 힘이 실릴 가능성이 크다. 이 경우 수입물가의 상승을 저지하는 현상이 나타날 것으로 제기된다. 현재 연중 동결되던 주택담보대출 금리가 6% 선까지 오를 가능성도 제기된다.</div><div class='passage-box'><strong>|보기|</strong><br>ㄱ. 물가를 진정시키는 요인이 된다.<br>ㄴ. 물가 상승을 감소시킬 수 있다.<br>ㄷ. 경기부양을 최우선 목적으로 시행된다.<br>ㄹ. 주식, 부동산 등 자산 가격 상승을 억제하는 효과가 있다.</div>",
+        options: [
+          "① ㄱ, ㄷ",
+          "② ㄱ, ㄹ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 4,
+        explanation: "[해설]\n기사에 따르면 기준금리의 추가 인상에 따른 대출 금리 상승이 뒤따를 가능성이 크다.\n\nㄱ [O] 물가를 진정시키는 요인이다.\nㄴ [O] 긴축 통화 정책은 통화 공급 감소로 이어질 것이다.\nㄷ [X] 경기 부양이 아닌 물가 안정을 위한 정책이다.\nㄹ [O] 시중 유동성이 회수되면서 자산 가격이 하락 내지 안정될 가능성이 크다.\n\n정답: ④"
+      },
+      {
+        id: 45,
+        category: "미시/시장구조",
+        question: "아래 그림의 A~D는 상품시장을 공급자의 수와 제품차별화 정도에 따라 완전경쟁시장, 독점적 경쟁시장, 과점시장, 독점시장으로 구분한 것이다. 다음 중 각 영역에 대한 올바른 설명으로 가장 거리가 먼 것은? (단, A~D는 각각 완전경쟁시장, 독점적 경쟁시장, 과점시장, 독점시장 가운데 하나에 반드시 해당한다.)<div class='matrix-wrapper'><div class='matrix-box'><div class='matrix-inner'><div class='matrix-y-title'>제품 차별화</div><div class='matrix-y-scale'><span>높음</span><span>낮음</span></div><div class='matrix-grid'><div class='matrix-cell'><span class='cell-symbol'>A</span><span class='cell-title'>독점시장</span></div><div class='matrix-cell'><span class='cell-symbol'>C</span><span class='cell-title'>독점적 경쟁</span></div><div class='matrix-cell'><span class='cell-symbol'>B</span><span class='cell-title'>과점시장</span></div><div class='matrix-cell'><span class='cell-symbol'>D</span><span class='cell-title'>완전경쟁</span></div></div><div class='matrix-x-scale'><span>낮음</span><span>높음</span></div><div class='matrix-x-title'>공급자의 수</div></div></div></div>",
+        options: [
+          "① A의 경우 기업은 우하향하는 수요곡선에 직면하게 된다.",
+          "② B의 경우 기업들은 상호의존적 의사결정을 해야 하는 상황에 처한다.",
+          "③ C의 경우 각 기업은 장기에도 초과이윤을 얻는다.",
+          "④ C의 경우 각 기업은 충성고객층에 대해 시장지배력을 행사한다.",
+          "⑤ D의 경우 개별 기업은 가격수용자(price taker)로 행동한다."
+        ],
+        answer: 3,
+        explanation: "[해설]\nA는 독점시장, B는 과점시장, C는 독점적 경쟁시장, D는 완전경쟁시장이다.\n\n① [O] 독점기업은 시장수요를 직접 직면하므로 수요곡선이 우하향 하는 것으로 인식한다.\n② [O] 과점시장의 공급은 소수의 기업에 의해 이루어지므로 한 기업의 선택이 다른 기업의 이윤에 직접적인 영향을 미친다. 따라서 기업들은 상대방의 행동을 염두에 두고 선택을 해야 하는 전략적 상황에 놓인다.\n③ [X] 독점적 경쟁시장의 경우 기업들은 제품차별화를 통해 단기에는 충성고객을 거느리고 이들에게 명구비용을 상회하는 가격을 받음으로써 초과이윤을 얻을 수 있다. 하지만 진입장벽의 부재로 장기적으로는 비슷한 제품을 공급하는 경쟁사가 시장에 진입해 수요를 일부 빼앗기고 이에 따라 가격은 평균비용으로 수렴한다. 따라서 장기에는 초과이윤이 0이 된다.\n④ [O] 독점적 경쟁시장에서 기업이 시장지배력을 행사할 수 있는 힘은 제품차별화를 통한 충성고객층 확보에서 비롯된다.\n⑤ [O] 완전경쟁시장에서 기업은 시장의 수요와 공급에 의해 결정된 가격을 받아들이는 가격수용자이다.\n\n정답: ③"
+      },
+      {
+        id: 46,
+        category: "미시/외부효과",
+        question: "어떤 재화의 한계비용과 한계편익이 다음의 [그림]과 같을 때 이에 대한 올바른 해석을 |보기|에서 모두 고르면?<div class='diagram-box'><svg viewBox='0 0 360 210' style='width:100%; max-width:360px; display:block; margin:0 auto;'><line x1='50' y1='20' x2='50' y2='170' stroke='#334155' stroke-width='2'/><line x1='50' y1='170' x2='330' y2='170' stroke='#334155' stroke-width='2'/><text x='15' y='25' font-size='12' font-weight='bold' fill='#1e293b'>가격 ↑</text><text x='290' y='190' font-size='12' font-weight='bold' fill='#1e293b'>수량 ────────></text><line x1='70' y1='40' x2='280' y2='150' stroke='#2563eb' stroke-width='2'/><text x='210' y='165' font-size='11' font-weight='bold' fill='#2563eb'>사적/사회적 한계편익</text><line x1='70' y1='150' x2='290' y2='70' stroke='#059669' stroke-width='2'/><text x='250' y='65' font-size='11' font-weight='bold' fill='#059669'>사적 한계비용</text><line x1='70' y1='110' x2='290' y2='30' stroke='#ef4444' stroke-width='2'/><text x='240' y='25' font-size='11' font-weight='bold' fill='#ef4444'>사회적 한계비용</text><line x1='50' y1='92' x2='171' y2='92' stroke='#cbd5e1' stroke-dasharray='2'/><text x='25' y='96' font-size='11' font-weight='bold' fill='#ef4444'>P2</text><line x1='50' y1='113' x2='201' y2='113' stroke='#cbd5e1' stroke-dasharray='2'/><text x='25' y='117' font-size='11' font-weight='bold' fill='#059669'>P1</text><line x1='171' y1='92' x2='171' y2='170' stroke='#cbd5e1' stroke-dasharray='2'/><text x='165' y='185' font-size='11' font-weight='bold' fill='#ef4444'>Q2</text><line x1='201' y1='113' x2='201' y2='170' stroke='#cbd5e1' stroke-dasharray='2'/><text x='195' y='185' font-size='11' font-weight='bold' fill='#059669'>Q1</text></svg></div><div class='passage-box'><strong>|보기|</strong><br>ㄱ. 재화의 생산 과정에서 규모의 경제 현상이 나타나고 있다.<br>ㄴ. 재화의 생산 과정에서 부정적 외부효과가 발생하고 있다.<br>ㄷ. 석탄 화력발전소에서 오염물질을 배출하는 것은 위와 같은 사례에 해당한다.<br>ㄹ. P2-P1만큼 세금을 부과하면 생산량을 사회적으로 효율적인 수준으로 유지할 수 있다.</div>",
+        options: [
+          "① ㄱ, ㄴ",
+          "② ㄱ, ㄷ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 4,
+        explanation: "[해설]\n생산 과정에서 사적 한계비용보다 사회적 한계비용이 크므로 부정적 외부효과(음의 외부효과)가 발생하고 있다. 피구세 부과 및 오염물질 배출 사례 등에 해당한다.\n\n정답: ④"
+      },
+      {
+        id: 47,
+        category: "고용/연계",
+        linkedGroup: "47-48",
+        linkedPassage: "<strong>[47~48] 다음 글을 읽고 답하시오.</strong><br><br>&lt; A &gt;는 경기기술 변혁으로 인해 새롭게 등장하는 산업에서 요구하는 기술을 갖추지 못한 근로자의 수요가 급감하면서 발생하는 장기적인 실업을 말한다. 직업을 잃은 근로자들의 구직 기간이 길어지고 만성화되는 사태가 빈번히 발생한다. 편법 제도의 요건에 의해 이 실업이 장기화되기도 한다. 이에 &lt; B &gt;는 직업을 잃은 노동자에게 새 직업을 얻을 때까지 생계를 보장할 목적으로 만들어진 제도로서, 구직자들이 실업 상태를 통한 재취업을 미룸으로써 구직 기간이 장기화되는 부작용도 존재한다.",
+        question: "위 빈칸 (A), (B)에 들어갈 내용을 올바르게 짝지은 것은?<table class='data-table'><thead><tr><th>구분</th><th>A</th><th>B</th></tr></thead><tbody><tr><td>①</td><td>마찰적 실업</td><td>고용보험</td></tr><tr><td>②</td><td>마찰적 실업</td><td>산재보험</td></tr><tr><td>③</td><td>구조적 실업</td><td>고용보험</td></tr><tr><td>④</td><td>구조적 실업</td><td>산재보험</td></tr><tr><td>⑤</td><td>계절적 실업</td><td>고용보험</td></tr></tbody></table>",
+        options: [
+          "① ①",
+          "② ②",
+          "③ ③",
+          "④ ④",
+          "⑤ ⑤"
+        ],
+        answer: 3,
+        explanation: "[해설]\n빈칸 (A)는 구조적 실업이며 (B)는 고용보험이다.\n\n정답: ③"
+      },
+      {
+        id: 48,
+        category: "고용/연계",
+        linkedGroup: "47-48",
+        linkedPassage: "<strong>[47~48] 다음 글을 읽고 답하시오.</strong><br><br>&lt; A &gt;는 경기기술 변혁으로 인해 새롭게 등장하는 산업에서 요구하는 기술을 갖추지 못한 근로자의 수요가 급감하면서 발생하는 장기적인 실업을 말한다. 직업을 잃은 근로자들의 구직 기간이 길어지고 만성화되는 사태가 빈번히 발생한다. 편법 제도의 요건에 의해 이 실업이 장기화되기도 한다. 이에 &lt; B &gt;는 직업을 잃은 노동자에게 새 직업을 얻을 때까지 생계를 보장할 목적으로 만들어진 제도로서, 구직자들이 실업 상태를 통한 재취업을 미룸으로써 구직 기간이 장기화되는 부작용도 존재한다.",
+        question: "다음 중 앞의 빈칸 (A)에 대한 올바른 설명을 |보기|에서 모두 고르면?<div class='passage-box'><strong>|보기|</strong><br>ㄱ. 경기 호황기에는 (A)가 나타나지 않는다.<br>ㄴ. (A)는 장기적으로 총공급을 감소시킨다.<br>ㄷ. 직업 재교육 프로그램은 (A)를 감소시키는 효과가 있다.<br>ㄹ. 근로자가 자신에게 더 적합한 직장을 찾기 위해 사직하는 것은 (A)에 해당한다.</div>",
+        options: [
+          "① ㄱ, ㄴ",
+          "② ㄱ, ㄷ",
+          "③ ㄴ, ㄷ",
+          "④ ㄴ, ㄹ",
+          "⑤ ㄷ, ㄹ"
+        ],
+        answer: 3,
+        explanation: "[해설]\nㄱ [X] 경기순환에 따라 변동하는 실업은 경기적 실업이며 구조적 실업의 경우 구조적 요인이 사라지지 않는 한 쉽게 없어지지 않는다.\nㄴ [O] 장기적으로 노동 공급을 감소시켜 경제의 총공급을 감소시킨다.\nㄷ [O] 직업 재교육을 통해 새로운 직종으로의 전환이 가능하므로 구조적 실업을 줄이는 효과가 있다.\nㄹ [X] 마찰적 실업 또는 자발적 실업에 해당한다.\n\n정답: ③"
+      },
+      {
+        id: 49,
+        category: "무역/비교우위",
+        question: "다음 표는 A국과 B국의 각 재화 한 단위 생산에 필요한 노동시간을 나타낸다. 다음 중 이에 대한 올바른 설명은? (단, 재화 생산에 투입되는 생산요소는 노동이 유일하다.)<table class='data-table'><thead><tr><th>국가</th><th>자동차</th><th>쇠고기</th></tr></thead><tbody><tr><td>A국</td><td>1시간</td><td>3시간</td></tr><tr><td>B국</td><td>2시간</td><td>4시간</td></tr></tbody></table>",
+        options: [
+          "① A국은 쇠고기 생산에, B국은 자동차 생산에 각각 비교우위가 있다.",
+          "② B국적 자동차 한 단위 생산 시 기회비용은 쇠고기 2단위이다.",
+          "③ B국은 자동차와 쇠고기 두 가지 품목 모두에서 비교우위가 있다.",
+          "④ A국은 B국에 비해 두 품목 모두를 더 적은 노동시간을 투입해 생산할 수 있으므로 교역을 통해 이익을 얻을 수 없다.",
+          "⑤ 만약 양국 간 교역조건이 '자동차에 대한 쇠고기의 상대가격'이 2라면, A국은 자동차를, B국은 쇠고기를 생산한 후 교역에 임하게 될 것이다."
+        ],
+        answer: 5,
+        explanation: "[해설]\n재화 생산에 따른 각국의 기회비용은 아래 표와 같다.\n\n<table class='data-table'><thead><tr><th>국가</th><th>자동차</th><th>쇠고기</th></tr></thead><tbody><tr><td>A국</td><td>쇠고기 1/3</td><td>자동차 3</td></tr><tr><td>B국</td><td>쇠고기 1/2</td><td>자동차 2</td></tr></tbody></table>\n\n자동차 생산의 기회비용은 A국이, 쇠고기 생산의 기회비용은 B국이 작으므로 A국은 자동차 생산에, B국은 쇠고기 생산에 각각 비교우위가 있다.\n\n①, ③ [X] A국은 자동차 생산에, B국은 쇠고기 생산에 비교우위를 가진다.\n\n② [X] B국의 자동차 한 단위 생산 시 기회비용은 쇠고기 1/2단위이다.\n\n④ [X] 비교우위를 바탕으로 교역에 임하면 교역에 참여한 모든 국가가 이득을 얻을 수 있다.\n\n⑤ [O] '자동차에 대한 쇠고기의 상대가격'이 2.5라면, A국의 '쇠고기 한 단위 생산 시 기회비용'인 3보다 작고 B국의 '쇠고기 한 단위 생산 시 기회비용'인 2보다 크므로 A국은 자신이 비교우위에 있는 자동차를, B국은 자신이 비교우위에 있는 쇠고기를 특화 생산하게 된다. 추후 양국이 이를 교환하면 교역의 이득을 얻을 수 있다.\n\n정답 ⑤"
+      },
+      {
+        id: 50,
+        category: "미시/시장균형",
+        question: "다음 기사를 읽고 의류시장과 배달서비스시장의 균형이 이동하는 방향을 그림에서 찾아 바르게 짝지은 것은?<div class='passage-box'><strong>NEWS</strong><br><br>위드코로나로 인해 식당이나 카페에서의 집합시간과 인원 제한이 완화되면서 소비가 늘고 있다. 방역 정책 완화 이후 롯데아울렛의 의류 매출은 전년보다 35% 증가하였다. 위드코로나 기대감에 외출 활동이 잦아질 것을 대비해 의류를 구매하는 소비자들이 많아진 셈이다. 하지만 웃지 못하는 자영업자들도 적지 않다. 배송서비스를 담당하던 '라이더'들은 이전보다 일감이 20% 정도 줄었다고 말한다. 배달 전문 도시락 매장도 올해 들어 최저 매출을 기록했다.</div><div class='diagram-box'><svg viewBox='0 0 360 260' style='width:100%; max-width:360px; display:block; margin:0 auto;'><line x1='50' y1='20' x2='50' y2='220' stroke='#334155' stroke-width='2'/><line x1='50' y1='220' x2='330' y2='220' stroke='#334155' stroke-width='2'/><text x='15' y='25' font-size='12' font-weight='bold' fill='#1e293b'>가격</text><text x='300' y='240' font-size='12' font-weight='bold' fill='#1e293b'>수량</text><text x='38' y='235' font-size='11' fill='#1e293b'>0</text><line x1='70' y1='200' x2='290' y2='40' stroke='#059669' stroke-width='2'/><text x='295' y='45' font-size='12' font-weight='bold' fill='#059669'>S</text><line x1='70' y1='40' x2='290' y2='200' stroke='#2563eb' stroke-width='2'/><text x='295' y='205' font-size='12' font-weight='bold' fill='#2563eb'>D</text><circle cx='180' cy='120' r='5' fill='#1e293b'/><line x1='180' y1='110' x2='180' y2='65' stroke='#334155' stroke-width='2' marker-end='url(#arrow50)'/><circle cx='180' cy='50' r='13' fill='#2563eb'/><text x='180' y='54' text-anchor='middle' font-size='12' font-weight='bold' fill='#ffffff'>ⓐ</text><line x1='190' y1='120' x2='245' y2='120' stroke='#334155' stroke-width='2' marker-end='url(#arrow50)'/><circle cx='260' cy='120' r='13' fill='#2563eb'/><text x='260' y='124' text-anchor='middle' font-size='12' font-weight='bold' fill='#ffffff'>ⓑ</text><line x1='180' y1='130' x2='180' y2='175' stroke='#334155' stroke-width='2' marker-end='url(#arrow50)'/><circle cx='180' cy='190' r='13' fill='#2563eb'/><text x='180' y='194' text-anchor='middle' font-size='12' font-weight='bold' fill='#ffffff'>ⓒ</text><line x1='170' y1='120' x2='115' y2='120' stroke='#334155' stroke-width='2' marker-end='url(#arrow50)'/><circle cx='100' cy='120' r='13' fill='#2563eb'/><text x='100' y='124' text-anchor='middle' font-size='12' font-weight='bold' fill='#ffffff'>ⓓ</text><defs><marker id='arrow50' viewBox='0 0 10 10' refX='6' refY='5' markerWidth='6' markerHeight='6' orient='auto-start-reverse'><path d='M 0 0 L 10 5 L 0 10 z' fill='#334155'/></marker></defs></svg></div><div class='passage-box'><strong>기존 수요·공급 곡선의 교차점(균형점)에서 이동 방향:</strong><br>· <strong>ⓐ</strong>: 위쪽 방향 (가격 상승, 수량 불변)<br>· <strong>ⓑ</strong>: 오른쪽 방향 (가격 상승, 수량 증가)<br>· <strong>ⓒ</strong>: 아래쪽 방향 (가격 하락, 수량 불변)<br>· <strong>ⓓ</strong>: 왼쪽 방향 (가격 하락, 수량 감소)</div><table class='data-table'><thead><tr><th>구분</th><th>의류 시장</th><th>배달서비스 시장</th></tr></thead><tbody><tr><td>①</td><td>ⓑ</td><td>ⓑ</td></tr><tr><td>②</td><td>ⓑ</td><td>ⓓ</td></tr><tr><td>③</td><td>ⓓ</td><td>ⓓ</td></tr><tr><td>④</td><td>ⓓ</td><td>ⓑ</td></tr><tr><td>⑤</td><td>ⓓ</td><td>ⓒ</td></tr></tbody></table>",
+        options: [
+          "① ①",
+          "② ②",
+          "③ ③",
+          "④ ④",
+          "⑤ ⑤"
+        ],
+        answer: 2,
+        explanation: "[해설]\n위드코로나로 인해 의류시장의 수요는 증가한 반면 배달 서비스 수요는 감소했다. 따라서 의류시장의 균형은 ⓑ로, 배달 서비스시장의 균형은 ⓓ로 이동한다.\n\n정답 ②"
+      }
+    ];
+
+    let questions = JSON.parse(JSON.stringify(originalQuestions));
+    let userAnswers = new Array(questions.length).fill(null);
+    let currentIndex = 0;
+
+    function initApp() {
+      document.getElementById('totalIndex').innerText = questions.length;
+      renderOMR();
+      loadQuestion(currentIndex);
+    }
+
+    function loadQuestion(index) {
+      currentIndex = index;
+      const q = questions[currentIndex];
+
+      document.getElementById('currentIndex').innerText = currentIndex + 1;
+      document.getElementById('categoryBadge').innerText = q.category || "경제학";
+
+      // 공통 연계 지문 처리
+      const linkedBox = document.getElementById('linkedPassage');
+      if (q.linkedPassage) {
+        linkedBox.style.display = 'block';
+        linkedBox.innerHTML = q.linkedPassage;
+      } else {
+        linkedBox.style.display = 'none';
+        linkedBox.innerHTML = '';
+      }
+
+      document.getElementById('questionTitle').innerHTML = q.question;
+
+      // 보기 생성
+      const optionsList = document.getElementById('optionsList');
+      optionsList.innerHTML = '';
+
+      const selectedOpt = userAnswers[currentIndex];
+
+      q.options.forEach((optText, optIdx) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn';
+        btn.innerHTML = optText;
+
+        if (selectedOpt !== null) {
+          if (optIdx + 1 === q.answer) {
+            btn.classList.add('correct');
+          } else if (optIdx + 1 === selectedOpt) {
+            btn.classList.add('wrong');
+          }
+        }
+
+        btn.onclick = () => selectOption(optIdx + 1);
+        optionsList.appendChild(btn);
+      });
+
+      // 해설 박스 처리
+      const expBox = document.getElementById('explanationBox');
+      if (selectedOpt !== null) {
+        expBox.style.display = 'block';
+        expBox.innerHTML = q.explanation;
+      } else {
+        expBox.style.display = 'none';
+      }
+
+      // 이전/다음 버튼 상태
+      document.getElementById('prevBtn').disabled = (currentIndex === 0);
+      document.getElementById('nextBtn').disabled = (currentIndex === questions.length - 1);
+
+      updateOMRActive();
+    }
+
+    function selectOption(optNumber) {
+      if (userAnswers[currentIndex] !== null) return;
+
+      userAnswers[currentIndex] = optNumber;
+      loadQuestion(currentIndex);
+      updateScoreSummary();
+      renderOMR();
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        loadQuestion(currentIndex - 1);
+      }
+    }
+
+    function nextQuestion() {
+      if (currentIndex < questions.length - 1) {
+        loadQuestion(currentIndex + 1);
+      }
+    }
+
+    function renderOMR() {
+      const omrGrid = document.getElementById('omrGrid');
+      omrGrid.innerHTML = '';
+
+      questions.forEach((q, idx) => {
+        const item = document.createElement('div');
+        item.className = `omr-item ${idx === currentIndex ? 'active' : ''}`;
+
+        let statusBadge = `<span class="status-badge status-none">미풀음</span>`;
+        if (userAnswers[idx] !== null) {
+          if (userAnswers[idx] === q.answer) {
+            statusBadge = `<span class="status-badge status-correct">정답</span>`;
+          } else {
+            statusBadge = `<span class="status-badge status-wrong">오답</span>`;
+          }
+        }
+
+        item.innerHTML = `<span><strong>${q.id}.</strong> ${q.category || ''}</span>${statusBadge}`;
+        item.onclick = () => loadQuestion(idx);
+        omrGrid.appendChild(item);
+      });
+    }
+
+    function updateOMRActive() {
+      const items = document.querySelectorAll('.omr-item');
+      items.forEach((item, idx) => {
+        if (idx === currentIndex) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+
+    function updateScoreSummary() {
+      const correctCount = userAnswers.filter((ans, idx) => ans === questions[idx].answer).length;
+      document.getElementById('scoreSummary').innerText = `맞힘: ${correctCount} / ${questions.length}`;
+    }
+
+    function resetAndShuffle() {
+      if (!confirm("문제를 섞고 답안을 초기화하시겠습니까?")) return;
+      questions = JSON.parse(JSON.stringify(originalQuestions));
+
+      for (let i = questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [questions[i], questions[j]] = [questions[j], questions[i]];
+      }
+      userAnswers = new Array(questions.length).fill(null);
+      currentIndex = 0;
+      initApp();
+    }
+
+    window.onload = initApp;
+  </script>
+</body>
+</html>
